@@ -1,10 +1,4 @@
-"""
-Page Object de la pagina de login (https://www.saucedemo.com).
-Concentra los locators y las acciones posibles sobre esta pagina especifica.
-"""
-
 from selenium.webdriver.common.by import By
-
 from pages.base_page import BasePage
 from utils.logger import get_logger
 

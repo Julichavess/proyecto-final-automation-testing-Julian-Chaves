@@ -1,9 +1,4 @@
-"""
-Page Object de la pagina de inventario (listado de productos) de saucedemo.
-"""
-
 from selenium.webdriver.common.by import By
-
 from pages.base_page import BasePage
 from utils.logger import get_logger
 
