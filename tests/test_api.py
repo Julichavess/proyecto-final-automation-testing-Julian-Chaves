@@ -1,25 +1,6 @@
-"""
-Tests de API para el endpoint publico ReqRes (https://reqres.in).
-
-IMPORTANTE: desde 2026 ReqRes requiere una x-api-key en cada request.
-Consegui la tuya gratis en https://reqres.in/signup y exportala como
-variable de entorno antes de correr estos tests:
-
-    export REQRES_API_KEY="tu_api_key"      (Linux/Mac)
-    setx REQRES_API_KEY "tu_api_key"        (Windows)
-
-Cubre:
-  - GET: obtener un listado y un recurso puntual
-  - POST: crear un usuario
-  - DELETE: eliminar un usuario
-  - Encadenamiento: crear un usuario y luego consultarlo
-"""
-
 import os
-
 import pytest
 import requests
-
 from utils.logger import get_logger
 
 log = get_logger(__name__)
@@ -27,7 +8,7 @@ log = get_logger(__name__)
 BASE_URL = "https://reqres.in/api"
 API_KEY = os.getenv("REQRES_API_KEY", "free_user_3GEr8DI9HLmuTO5WkYgwRedNNxT")
 
-HEADERS = {
+headers = {
     "Content-Type": "application/json",
     "x-api-key": API_KEY,
 }
@@ -40,7 +21,7 @@ pytestmark = pytest.mark.skipif(
 
 def test_get_lista_de_usuarios():
     """GET /users?page=2 -> debe responder 200 y traer una lista de usuarios."""
-    response = requests.get(f"{BASE_URL}/users", params={"page": 2}, headers=HEADERS)
+    response = requests.get(f"{BASE_URL}/users", params={"page": 2}, headers=headers)
     log.info("GET /users -> status %s", response.status_code)
 
     assert response.status_code == 200
@@ -52,7 +33,7 @@ def test_get_lista_de_usuarios():
 
 def test_get_usuario_individual():
     """GET /users/2 -> debe responder 200 y traer el usuario con id 2."""
-    response = requests.get(f"{BASE_URL}/users/2", headers=HEADERS)
+    response = requests.get(f"{BASE_URL}/users/2", headers=headers)
     log.info("GET /users/2 -> status %s", response.status_code)
 
     assert response.status_code == 200
@@ -64,7 +45,7 @@ def test_get_usuario_individual():
 def test_post_crear_usuario():
     """POST /users -> debe crear un usuario y responder 201 con el nombre/job enviados."""
     payload = {"name": "Juan Perez", "job": "QA Automation Engineer"}
-    response = requests.post(f"{BASE_URL}/users", json=payload, headers=HEADERS)
+    response = requests.post(f"{BASE_URL}/users", json=payload, headers=headers)
     log.info("POST /users -> status %s", response.status_code)
 
     assert response.status_code == 201
@@ -76,26 +57,22 @@ def test_post_crear_usuario():
 
 def test_delete_usuario():
     """DELETE /users/2 -> debe responder 204 (sin contenido)."""
-    response = requests.delete(f"{BASE_URL}/users/2", headers=HEADERS)
+    response = requests.delete(f"{BASE_URL}/users/2", headers=headers)
     log.info("DELETE /users/2 -> status %s", response.status_code)
 
     assert response.status_code == 204
 
 
 def test_encadenamiento_crear_y_consultar_usuario():
-    """
-    Flujo encadenado: crea un usuario (POST) y usa el id devuelto
-    para consultarlo despues, simulando un caso real de dependencia entre requests.
-    """
+
     payload = {"name": "Maria Lopez", "job": "QA Lead"}
-    post_response = requests.post(f"{BASE_URL}/users", json=payload, headers=HEADERS)
+    post_response = requests.post(f"{BASE_URL}/users", json=payload, headers=headers)
     assert post_response.status_code == 201
 
     nuevo_id = post_response.json()["id"]
     log.info("Usuario creado con id %s, consultando a continuacion", nuevo_id)
 
-    get_response = requests.get(f"{BASE_URL}/users/{nuevo_id}", headers=HEADERS)
-    # Nota: ReqRes es un mock, por lo que el recurso recien creado puede no
-    # persistir realmente; se valida que la API responda de forma coherente.
+    get_response = requests.get(f"{BASE_URL}/users/{nuevo_id}", headers=headers)
+    
     log.info("GET /users/%s -> status %s", nuevo_id, get_response.status_code)
     assert get_response.status_code in (200, 404)

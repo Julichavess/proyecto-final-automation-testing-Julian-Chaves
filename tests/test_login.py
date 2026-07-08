@@ -1,10 +1,3 @@
-"""
-Tests de login. Cubre:
-  - Caso positivo: login valido redirige a inventario
-  - Casos negativos parametrizados: usuario inexistente, password incorrecta,
-    usuario bloqueado y campos vacios (leidos desde data/login_data.json)
-"""
-
 import json
 import os
 

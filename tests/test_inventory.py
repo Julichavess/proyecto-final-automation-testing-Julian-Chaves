@@ -1,7 +1,3 @@
-"""
-Tests sobre la pagina de inventario: titulo, listado de productos y elementos de UI visibles.
-"""
-
 from pages.inventory_page import InventoryPage
 from utils.logger import get_logger
 

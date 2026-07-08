@@ -1,7 +1,3 @@
-"""
-Test E2E: agregar un producto al carrito y verificar que sea el mismo
-producto que aparece luego dentro del carrito.
-"""
 
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
