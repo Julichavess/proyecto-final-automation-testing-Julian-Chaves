@@ -1,0 +1,32 @@
+{
+  "valid_user": {
+    "username": "standard_user",
+    "password": "secret_sauce"
+  },
+  "invalid_logins": [
+    {
+      "case": "usuario_inexistente",
+      "username": "usuario_que_no_existe",
+      "password": "secret_sauce",
+      "expected_error": "Username and password do not match any user in this service"
+    },
+    {
+      "case": "password_incorrecta",
+      "username": "standard_user",
+      "password": "clave_incorrecta",
+      "expected_error": "Username and password do not match any user in this service"
+    },
+    {
+      "case": "usuario_bloqueado",
+      "username": "locked_out_user",
+      "password": "secret_sauce",
+      "expected_error": "Sorry, this user has been locked out"
+    },
+    {
+      "case": "campos_vacios",
+      "username": "",
+      "password": "",
+      "expected_error": "Username is required"
+    }
+  ]
+}
