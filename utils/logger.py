@@ -1,16 +1,3 @@
-"""
-Modulo de logging centralizado del proyecto.
-
-Provee un logger unico que escribe simultaneamente en:
-  - Consola (nivel INFO en adelante)
-  - Archivo logs/execution.log (nivel DEBUG en adelante, mas detallado)
-
-Uso:
-    from utils.logger import get_logger
-    log = get_logger(__name__)
-    log.info("Iniciando test de login")
-"""
-
 import logging
 import os
 from datetime import datetime
@@ -26,11 +13,8 @@ _FORMAT = "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
 _DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
-def get_logger(name: str = "qa_automation") -> logging.Logger:
-    """
-    Devuelve un logger configurado con handlers de archivo y consola.
-    Evita duplicar handlers si get_logger se llama varias veces con el mismo name.
-    """
+def get_logger(name: str = "qa_automation"):
+
     logger = logging.getLogger(name)
 
     if logger.handlers:

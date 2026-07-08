@@ -1,12 +1,3 @@
-"""
-Fixtures compartidas de pytest para todo el proyecto:
-  - driver: instancia limpia de Chrome por cada test
-  - login_in_driver: driver ya logueado con usuario valido (para tests que
-    no necesitan probar el login en si, sino algo posterior)
-  - Hook de captura de screenshot automatica ante fallos, integrado al
-    reporte HTML de pytest-html
-"""
-
 import json
 import os
 from datetime import datetime
