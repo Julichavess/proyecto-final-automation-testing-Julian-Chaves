@@ -50,4 +50,6 @@ pytest tests/test_api.py                                                 # API
 Cada corrida genera un log detallado en `logs/YYYYMMDD.log` con los pasos
 clave de cada test, útil para depurar fallas sin tener que reproducirlas.
 
+## Clonar Repositorio
 
+git clone + https://github.com/Julichavess/proyecto-final-automation-testing-Julian-Chaves.git
